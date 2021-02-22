@@ -6,7 +6,6 @@ return require('packer').startup(function()
 	use 'neovim/nvim-lspconfig'
 	use 'anott03/nvim-lspinstall'
 	use 'nvim-lua/completion-nvim'
-	use 'RishabhRD/nvim-lsputils'
-	use 'RishabhRD/popfix'
-	use 'airblade/vim-gitgutter'
+	use {'RishabhRD/nvim-lsputils', requires = {'RishabhRD/popfix'}}
+	use 'nvim-lua/plenary.nvim'
 end)

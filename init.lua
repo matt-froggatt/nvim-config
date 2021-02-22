@@ -2,6 +2,7 @@
 -- 	- extract configs to where they are needed (i.e. only
 -- 	  configure something when I add it, not in this file)
 -- 	- make git work good
+-- 	- make testing work
 --	- try this config out
 
 if vim.g.vscode == nil then
@@ -32,8 +33,14 @@ if vim.g.vscode == nil then
 	local install_path = fn.stdpath('data')..'/site/pack/packer/opt/packer.nvim'
 
 	if fn.empty(fn.glob(install_path)) > 0 then
+		-- Install Packer
 		execute('!git clone https://github.com/wbthomason/packer.nvim '..install_path)
 		execute 'packadd packer.nvim'
+
+		-- Install Packer plugins
+		require('plugins')
+		execute 'PackerCompile'
+		execute 'PackerSync'
 	end
 
 	-- Use configurations
@@ -46,7 +53,11 @@ if vim.g.vscode == nil then
 	cmd 'autocmd BufEnter * lua require"completion".on_attach()'
 
 	-- Automatically compile and install Packer plugins
+	cmd 'autocmd BufWritePost plugins.lua lua require("plenary.reload").reload_module("plugins")'
+	cmd 'autocmd BufWritePost plugins.lua lua require("plugins")'
 	cmd 'autocmd BufWritePost plugins.lua PackerCompile'
+	cmd 'autocmd BufWritePost plugins.lua PackerInstall'
+	cmd 'autocmd BufWritePost plugins.lua PackerClean'
 
 	-- Options
 	opt('b', 'smartindent', true)                         -- Insert indents automatically
