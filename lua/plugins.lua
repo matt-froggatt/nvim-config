@@ -5,5 +5,5 @@ return require('packer').startup(function()
 	use 'nvim-treesitter/nvim-treesitter'
 	use 'neovim/nvim-lspconfig'
 	use 'anott03/nvim-lspinstall'
-	use 'alexaandru/nvim-lspupdate'
+	use 'nvim-lua/completion-nvim'
 end)
