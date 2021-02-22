@@ -40,7 +40,7 @@ if vim.g.vscode == nil then
 		-- Install Packer plugins
 		require('plugins')
 		execute 'PackerCompile'
-		execute 'PackerSync'
+		execute 'PackerInstall'
 	end
 
 	-- Use configurations
