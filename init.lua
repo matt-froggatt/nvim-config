@@ -1,6 +1,8 @@
 -- Helpers
 local execute = vim.api.nvim_command
 local fn = vim.fn
+local cmd = vim.cmd
+local lsp = vim.lsp
 local scopes = {o = vim.o, b = vim.bo, w = vim.wo}
 
 local function opt(scope, key, value)
@@ -14,12 +16,14 @@ local function map(mode, lhs, rhs, opts)
   vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
+-- Set leader key
+vim.g.mapleader = ' '
 
 -- Install Packer if not already installed
 
-local install_path = vim.fn.stdpath('data')..'/site/pack/packer/opt/packer.nvim'
+local install_path = fn.stdpath('data')..'/site/pack/packer/opt/packer.nvim'
 
-if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
+if fn.empty(fn.glob(install_path)) > 0 then
 	execute('!git clone https://github.com/wbthomason/packer.nvim '..install_path)
 	execute 'packadd packer.nvim'
 end
@@ -31,11 +35,10 @@ require('languageserverconfig')
 
 
 -- Completion setup
-vim.cmd 'autocmd BufEnter * lua require"completion".on_attach()'
+cmd 'autocmd BufEnter * lua require"completion".on_attach()'
 
 -- Automatically compile and install Packer plugins
-vim.cmd 'autocmd BufWritePost plugins.lua PackerCompile'
-vim.cmd 'autocmd BufWritePost plugins.lua PackerSync'
+cmd 'autocmd BufWritePost plugins.lua PackerCompile'
 
 -- Options
 opt('b', 'smartindent', true)                         -- Insert indents automatically
@@ -54,13 +57,22 @@ map('i', '<C-Space>', '<Plug>(completion_trigger)',{
 )
 
 -- LSP mappings
-map('n', '<Space>,', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>')
-map('n', '<Space>;', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
-map('n', '<Space>a', '<cmd>lua vim.lsp.buf.code_action()<CR>')
-map('n', '<Space>d', '<cmd>lua vim.lsp.buf.definition()<CR>')
-map('n', '<Space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>')
-map('n', '<Space>h', '<cmd>lua vim.lsp.buf.hover()<CR>')
-map('n', '<Space>m', '<cmd>lua vim.lsp.buf.rename()<CR>')
-map('n', '<Space>r', '<cmd>lua vim.lsp.buf.references()<CR>')
-map('n', '<Space>s', '<cmd>lua vim.lsp.buf.document_symbol()<CR>')
+map('n', '<leader>,', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>')
+map('n', '<leader>;', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
+map('n', '<leader>a', '<cmd>lua vim.lsp.buf.code_action()<CR>')
+map('n', '<leader>d', '<cmd>lua vim.lsp.buf.definition()<CR>')
+map('n', '<leader>f', '<cmd>lua vim.lsp.buf.formatting()<CR>')
+map('n', '<leader>h', '<cmd>lua vim.lsp.buf.hover()<CR>')
+map('n', '<leader>m', '<cmd>lua vim.lsp.buf.rename()<CR>')
+map('n', '<leader>r', '<cmd>lua vim.lsp.buf.references()<CR>')
+map('n', '<leader>s', '<cmd>lua vim.lsp.buf.document_symbol()<CR>')
 
+-- LSP Utils config
+lsp.handlers['textDocument/codeAction'] = require'lsputil.codeAction'.code_action_handler
+lsp.handlers['textDocument/references'] = require'lsputil.locations'.references_handler
+lsp.handlers['textDocument/definition'] = require'lsputil.locations'.definition_handler
+lsp.handlers['textDocument/declaration'] = require'lsputil.locations'.declaration_handler
+lsp.handlers['textDocument/typeDefinition'] = require'lsputil.locations'.typeDefinition_handler
+lsp.handlers['textDocument/implementation'] = require'lsputil.locations'.implementation_handler
+lsp.handlers['textDocument/documentSymbol'] = require'lsputil.symbols'.document_handler
+lsp.handlers['workspace/symbol'] = require'lsputil.symbols'.workspace_handler
