@@ -8,4 +8,5 @@ return require('packer').startup(function()
 	use 'nvim-lua/completion-nvim'
 	use 'RishabhRD/nvim-lsputils'
 	use 'RishabhRD/popfix'
+	use 'airblade/vim-gitgutter'
 end)
