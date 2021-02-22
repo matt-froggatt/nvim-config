@@ -1,3 +1,9 @@
+-- TODO:
+-- 	- extract configs to where they are needed (i.e. only
+-- 	  configure something when I add it, not in this file)
+--	- try this config out
+
+
 -- Helpers
 local execute = vim.api.nvim_command
 local fn = vim.fn
@@ -76,3 +82,9 @@ lsp.handlers['textDocument/typeDefinition'] = require'lsputil.locations'.typeDef
 lsp.handlers['textDocument/implementation'] = require'lsputil.locations'.implementation_handler
 lsp.handlers['textDocument/documentSymbol'] = require'lsputil.symbols'.document_handler
 lsp.handlers['workspace/symbol'] = require'lsputil.symbols'.workspace_handler
+
+-- Netrw config
+vim.g.netrw_liststyle = 3
+vim.g.netrw_banner = 0
+vim.g.netrw_browse_split = 4
+map('n', '<leader>n', '<cmd>Lexplore<CR>')
