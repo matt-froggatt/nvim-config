@@ -24,6 +24,7 @@ return require('packer').startup(function()
 		end
 	}
 	use 'anott03/nvim-lspinstall'
+	use 'tpope/vim-fugitive'
 	use {
 		'sainnhe/sonokai',
 		config = function()
