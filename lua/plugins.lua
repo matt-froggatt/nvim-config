@@ -48,6 +48,19 @@ return require('packer').startup(function()
 	use 'nvim-lua/plenary.nvim'
 	use 'mfussenegger/nvim-dap'
 	use {
+		'akinsho/nvim-bufferline.lua',
+		requires = {'kyazdani42/nvim-web-devicons'},
+		config = function()
+			require('bufferline').setup {
+				options = {
+					mappings = true,
+					diagnostics = 'nvim_lsp',
+					show_buffer_close_icons = false
+				}
+			}
+		end
+	}
+	use {
 		'b3nj5m1n/kommentary',
 		config = function()
 			vim.api.nvim_set_keymap(
