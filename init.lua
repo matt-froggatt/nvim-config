@@ -1,7 +1,6 @@
 -- TODO:
 -- 	- extract configs to where they are needed (i.e. only
 -- 	  configure something when I add it, not in this file)
--- 	- make git work good
 -- 	- make testing work
 --	- try this config out
 
@@ -39,7 +38,6 @@ if vim.g.vscode == nil then
 
 	-- Use configurations
 	require('plugins')
-	require('treesitterconfig')
 
 	-- Completion setup
 	cmd 'autocmd BufEnter * lua require"completion".on_attach()'
@@ -58,8 +56,6 @@ if vim.g.vscode == nil then
 	vim.wo.signcolumn = 'yes'			-- Always show sign column
 	vim.wo.number = true				-- Print line number
 	vim.bo.smartindent = true			-- Insert indents automatically
-
-
 
 	-- Completion mappings
 	map('i', '<S-Tab>', 'pumvisible() ? "\\<C-p>" : "\\<S-Tab>"', {expr = true})
