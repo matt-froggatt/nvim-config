@@ -2,7 +2,16 @@ vim.cmd [[packadd packer.nvim]]
 
 return require('packer').startup(function()
 	use {'wbthomason/packer.nvim', opt = true}
-	use 'nvim-treesitter/nvim-treesitter'
+	use {
+		'nvim-treesitter/nvim-treesitter',
+		config = function()
+			require('nvim-treesitter.configs').setup {
+			ensure_installed = 'maintained',
+			highlight = { enable = true },
+			indent = { enable = true }
+}
+		end
+	}
 	use {
 		'neovim/nvim-lspconfig',
 		config = function()
