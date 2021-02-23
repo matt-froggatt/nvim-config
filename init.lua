@@ -40,7 +40,6 @@ if vim.g.vscode == nil then
 	-- Use configurations
 	require('plugins')
 	require('treesitterconfig')
-	require('languageserverconfig')
 
 	-- Completion setup
 	cmd 'autocmd BufEnter * lua require"completion".on_attach()'

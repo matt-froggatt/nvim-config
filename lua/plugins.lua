@@ -3,7 +3,15 @@ vim.cmd [[packadd packer.nvim]]
 return require('packer').startup(function()
 	use {'wbthomason/packer.nvim', opt = true}
 	use 'nvim-treesitter/nvim-treesitter'
-	use 'neovim/nvim-lspconfig'
+	use {
+		'neovim/nvim-lspconfig',
+		config = function()
+			local lsp = require('lspconfig')
+			-- List of language servers
+			lsp.tsserver.setup {}
+			lsp.vimls.setup {}
+		end
+	}
 	use 'anott03/nvim-lspinstall'
 	use 'nvim-lua/completion-nvim'
 	use {'RishabhRD/nvim-lsputils', requires = {'RishabhRD/popfix'}}
