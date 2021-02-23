@@ -10,6 +10,15 @@ return require('packer').startup(function()
 	use 'nvim-lua/plenary.nvim'
 	use 'mfussenegger/nvim-dap'
 	use {
+		'tjdevries/nlua.nvim',
+		config = function()
+			require('nlua.lsp.nvim').setup(require('lspconfig'), {
+				-- Include globals you want to tell the LSP are real :)
+				globals = {'vim', 'use'}
+			})
+		end
+	}
+	use {
 		'lewis6991/gitsigns.nvim',
 		requires = {
 			'nvim-lua/plenary.nvim'
