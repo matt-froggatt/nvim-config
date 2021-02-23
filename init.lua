@@ -12,12 +12,6 @@ if vim.g.vscode == nil then
 	local fn = vim.fn
 	local cmd = vim.cmd
 	local lsp = vim.lsp
-	local scopes = {o = vim.o, b = vim.bo, w = vim.wo}
-
-	local function opt(scope, key, value)
-	  scopes[scope][key] = value
-	  if scope ~= 'o' then scopes['o'][key] = value end
-	end
 
 	local function map(mode, lhs, rhs, opts)
 	  local options = {noremap = true}
@@ -59,11 +53,14 @@ if vim.g.vscode == nil then
 	cmd 'autocmd BufWritePost plugins.lua PackerClean'
 
 	-- Options
-	opt('b', 'smartindent', true)                         -- Insert indents automatically
-	opt('o', 'completeopt', 'menuone,noinsert,noselect')  -- Completion options
-	opt('o', 'splitbelow', true)                          -- Put new windows below current
-	opt('o', 'splitright', true)                          -- Put new windows right of current
-	opt('w', 'number', true)                              -- Print line number
+	vim.o.completeopt = 'menuone,noinsert,noselect'	-- Completion options
+	vim.o.splitbelow = true				-- Put new windows below current
+	vim.o.splitright = true				-- Put new windows right of current
+	vim.wo.signcolumn = 'yes'			-- Always show sign column
+	vim.wo.number = true				-- Print line number
+	vim.bo.smartindent = true			-- Insert indents automatically
+
+
 
 	-- Completion mappings
 	map('i', '<S-Tab>', 'pumvisible() ? "\\<C-p>" : "\\<S-Tab>"', {expr = true})
@@ -101,6 +98,9 @@ if vim.g.vscode == nil then
 	vim.g.netrw_browse_split = 4
 	vim.g.netrw_winsize = 25
 	map('n', '<leader>n', '<cmd>Lexplore<CR>')
+
+	-- Remove background on sign column
+	execute 'highlight clear SignColumn'
 
 end
 
