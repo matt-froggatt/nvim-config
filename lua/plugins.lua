@@ -24,6 +24,18 @@ return require('packer').startup(function()
 		end
 	}
 	use 'anott03/nvim-lspinstall'
+	use {
+		'kyazdani42/nvim-tree.lua',
+		requires = {'kyazdani42/nvim-web-devicons'},
+		config = function()
+			vim.api.nvim_set_keymap(
+				'n',
+				'<leader>n',
+				':NvimTreeToggle<CR>',
+				{}
+			)
+		end
+	}
 	use 'nvim-lua/completion-nvim'
 	use {'RishabhRD/nvim-lsputils', requires = {'RishabhRD/popfix'}}
 	use 'nvim-lua/plenary.nvim'
@@ -31,16 +43,31 @@ return require('packer').startup(function()
 	use {
 		'b3nj5m1n/kommentary',
 		config = function()
-			vim.api.nvim_set_keymap('n', '<leader>/', '<Plug>kommentary_line_default', {})
-			vim.api.nvim_set_keymap('n', '<leader>c', '<Plug>kommentary_motion_default', {})
-			vim.api.nvim_set_keymap('v', '<leader>/', '<Plug>kommentary_visual_default', {})
+			vim.api.nvim_set_keymap(
+				'n',
+				'<leader>/',
+				'<Plug>kommentary_line_default',
+				{}
+			)
+			vim.api.nvim_set_keymap(
+				'n',
+				'<leader>c',
+				'<Plug>kommentary_motion_default',
+				{}
+			)
+			vim.api.nvim_set_keymap(
+				'v',
+				'<leader>/',
+				'<Plug>kommentary_visual_default',
+				{}
+			)
 		end
 	}
 	use {
 		'tjdevries/nlua.nvim',
 		config = function()
 			require('nlua.lsp.nvim').setup(require('lspconfig'), {
-				-- Include globals you want to tell the LSP are real :)
+				-- Globals you want to tell the LSP are real :)
 				globals = {'vim', 'use'}
 			})
 		end

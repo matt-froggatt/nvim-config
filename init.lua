@@ -6,6 +6,7 @@
 
 if vim.g.vscode == nil then
 
+
 	-- Helpers
 	local execute = vim.api.nvim_command
 	local fn = vim.fn
@@ -53,6 +54,7 @@ if vim.g.vscode == nil then
 	vim.o.completeopt = 'menuone,noinsert,noselect'	-- Completion options
 	vim.o.splitbelow = true				-- Put new windows below current
 	vim.o.splitright = true				-- Put new windows right of current
+	vim.o.termguicolors = true			-- Use guicolors in terminal
 	vim.wo.signcolumn = 'yes'			-- Always show sign column
 	vim.wo.number = true				-- Print line number
 	vim.bo.smartindent = true			-- Insert indents automatically
@@ -86,13 +88,6 @@ if vim.g.vscode == nil then
 	lsp.handlers['textDocument/implementation'] = require'lsputil.locations'.implementation_handler
 	lsp.handlers['textDocument/documentSymbol'] = require'lsputil.symbols'.document_handler
 	lsp.handlers['workspace/symbol'] = require'lsputil.symbols'.workspace_handler
-
-	-- Netrw config
-	vim.g.netrw_liststyle = 3
-	vim.g.netrw_banner = 0
-	vim.g.netrw_browse_split = 4
-	vim.g.netrw_winsize = 25
-	map('n', '<leader>n', '<cmd>Lexplore<CR>')
 
 	-- Remove background on sign column
 	execute 'highlight clear SignColumn'
