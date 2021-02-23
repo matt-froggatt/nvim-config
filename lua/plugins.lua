@@ -1,5 +1,7 @@
 vim.cmd [[packadd packer.nvim]]
 
+vim.g.kommentary_create_default_mappings = false
+
 return require('packer').startup(function()
 	use {'wbthomason/packer.nvim', opt = true}
 	use {
@@ -26,6 +28,14 @@ return require('packer').startup(function()
 	use {'RishabhRD/nvim-lsputils', requires = {'RishabhRD/popfix'}}
 	use 'nvim-lua/plenary.nvim'
 	use 'mfussenegger/nvim-dap'
+	use {
+		'b3nj5m1n/kommentary',
+		config = function()
+			vim.api.nvim_set_keymap('n', '<leader>/', '<Plug>kommentary_line_default', {})
+			vim.api.nvim_set_keymap('n', '<leader>c', '<Plug>kommentary_motion_default', {})
+			vim.api.nvim_set_keymap('v', '<leader>/', '<Plug>kommentary_visual_default', {})
+		end
+	}
 	use {
 		'tjdevries/nlua.nvim',
 		config = function()
