@@ -5,6 +5,35 @@ vim.g.kommentary_create_default_mappings = false
 return require('packer').startup(function()
 	use {'wbthomason/packer.nvim', opt = true}
 	use {
+		'datwaft/bubbly.nvim',
+		config = function()
+			vim.g.bubbly_palette = {
+      				background = "StatusLine background",
+      				foreground = "StatusLine foreground",
+      				black = "VertSplit foreground",
+      				red = "Red foreground",
+      				green = "Green foreground",
+      				yellow = "Yellow foreground",
+      				blue = "Blue foreground",
+      				purple = "Purple foreground",
+      				cyan = "Orange foreground",
+      				white = "Normal foreground",
+      				lightgrey = "Grey foreground",
+      				darkgrey = "Pmenu background",
+      			}
+      			vim.g.bubbly_statusline = {
+      				'mode',
+      				'truncate',
+				'path',
+      				'branch',
+      				'builtinlsp.diagnostic_count',
+      				'divisor',
+      				'filetype',
+      				'progress',
+      			}
+		end
+	}
+	use {
 		'nvim-treesitter/nvim-treesitter',
 		config = function()
 			require('nvim-treesitter.configs').setup {
